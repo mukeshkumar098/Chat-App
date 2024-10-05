@@ -30,29 +30,29 @@ function Login() {
     };
     return (
         <>
-            <div className="login-container">
-                <div className="login">
+            <div className="login-container w-full flex justify-center items-center ">
+                <div className="login w-90 mt-20">
                     <div className="logos">
-                        <div className="logo">
-                            <img src="/public/logo3.jpg" alt="" />
+                        <div className="logo w-90  flex justify-center">
+                            <img src="/public/logo3.jpg" className='w-8 text-center ' alt="" />
                         </div>
                     </div>
-                    <div className="form">
+                    <div className="form w-90 flex justify-center items-center">
                         <div className="lista">
                             <div className="hadding">
                                 <h1>Enter your password</h1>
                             </div>
                             <div className="email">
-                                <input type="email" placeholder='Enter your email' />
+                                <input className='p-4 f-4 mt-5 w-[300px]' type="email" placeholder='Enter your email' />
                             </div>
                       
                             <div className="buttons">
-                                <button  >Continue</button>
+                                <button className='p-1 bg-royalblue w-[300px] mt-4 '  >Continue</button>
                             </div>
                           
                             <div className="google flex w-90 justify-center my-2 ">
-                            <div className="icons flex gap-2 my-2  " onClick={signInWithGoogle}>
-                                <img src="/public/search.png" alt="google logo"  className='w-6'/>
+                            <div className="icons flex gap-2 mt-2 p-3 w-[300px]  " onClick={signInWithGoogle}>
+                                <img src="/public/search.png" alt="google logo"  className='w-8'/>
                                 <h3 onClick={signInWithGoogle}>login whith google</h3>
                             </div>
                                           
@@ -60,10 +60,12 @@ function Login() {
                             
                 
                             </div>
-                            <div className="icons flex gap-2 my-2  " onClick={signInWithGithub}>
-                                <img src="/public/git.webp" alt="google logo"  className='w-8'/>
+                            <div className="git flex w-90 justify-center my-2 ">
+                            <div className="icons flex gap-2 mt-2 p-3 w-[300px]  " onClick={signInWithGithub}>
+                                <img src="/public/git.webp" alt="google logo"  className='w-9'/>
                                 <h3 onClick={signInWithGithub}>Continue With Github</h3>
 
+                            </div>
                             </div>
                             <div className="term flex gap-1 justify-center my-1">
                                 <p>Terms of Use</p>

@@ -8,7 +8,7 @@ function Chat({message,loading}) {
   
   return (
    <>
-    <div className='mychat-section'>
+    <div className='mychat-section  h-50 w-full overflow-scroll'>
       {message.map((ele)=>{ 
         return<>
          <div className={ele.role=='user'? "user-data":'chatGpt'}>{ele.role ==='user' ? '':<img src="/public/logo3.jpg" alt=""/>}{ele?.content && parse( marked(ele.content))}</div>

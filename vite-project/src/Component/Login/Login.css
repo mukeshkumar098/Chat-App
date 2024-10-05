@@ -3,34 +3,7 @@
     box-sizing: border-box;
 
 }
-.login-container{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-.login-container .login{
-    width: 900px;
-margin-top: 50px;
-}
-
-.login-container .login .logos{
-    width: 900px;
-    display: flex;
-    justify-content: center;
-
-}
-
-.login-container .login .form{
-    width: 900px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .login-container .login .logo img{
-    width: 80px;
     text-align: center;
     border-radius: 50%;
 
@@ -41,44 +14,27 @@ margin-top: 50px;
 
 }
 .login-container .login .email input{
-    padding: 15px;
+
     width: 300px;
-    font-size: 16px;
-    margin-top: 6px;
+ 
     border: 1.4px solid  rgb(36, 93, 147);
     border-radius: 10px;
-    margin-top: 20px;
+
 
 }
-.login-container .login .password input{
-    padding: 15px;
-    width: 300px;
-    font-size: 16px;
-    margin-top: 6px;
-    border: 1.4px solid  rgb(36, 93, 147);
-    border-radius: 10px;
-    margin-top: 10px;
 
-}
-.form .forget{
-    padding-top: 10px;
-}
-.form .forget a{
- color: green;
 
-}
 .form .buttons button{
     padding: 10px;
     background-color: royalblue;
     border-radius: 10px;
-    width: 300px;
     color: white;
     font-weight: bold;
-    margin-top: 10px;
-    margin-top: 20px;
+
 }
 
-.form .term p{margin-top: 20px;
+.form .term p{
+    margin-top: 20px;
     font-size: 0.9rem;
     margin-top: 10px;
     cursor: pointer;
@@ -100,11 +56,7 @@ margin-top: 50px;
     text-decoration: underline;
 }
 .icons{
-   padding: 15px;
-    width: 300px;
     font-size: 16px;
-    margin-top: 6px;
     border: 1.4px solid  rgb(36, 93, 147);
     border-radius: 10px;
-    margin-top: 10px;
 }
