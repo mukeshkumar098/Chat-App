@@ -3,6 +3,5 @@ publish = "dist"  # Vite outputs build to "dist"
 command = "npm run build"
 
 [[redirects]]
-from = "/*"
-to = "/index.html"
+from = "/*"to = "/index.html"
 status = 200
