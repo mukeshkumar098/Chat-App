@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "browser-router": "^0.2.0",
-    "sweetalert2": "^11.14.1"
-  }
-}

@@ -3,45 +3,22 @@
     box-sizing: border-box;
 
 }
-.login-container .login .logo img{
-    text-align: center;
-    border-radius: 50%;
-
-}
 .login-container .login .hadding h1{
     font-size: 2rem;
-    font-weight: bold;
 
 }
 .login-container .login .email input{
-
-    width: 300px;
- 
     border: 1.4px solid  rgb(36, 93, 147);
     border-radius: 10px;
 
 
 }
-
-
-.form .buttons button{
-    padding: 10px;
-    background-color: royalblue;
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
-
-}
-
 .form .term p{
     margin-top: 20px;
     font-size: 0.9rem;
     margin-top: 10px;
     cursor: pointer;
 
-}
-.google:hover{
-    cursor: pointer;
 }
 .signup a{
  color:white;
@@ -52,11 +29,8 @@
     display: flex;
     align-items: center;
 }
-.signup a:hover{
-    text-decoration: underline;
-}
+
 .icons{
     font-size: 16px;
     border: 1.4px solid  rgb(36, 93, 147);
-    border-radius: 10px;
 }

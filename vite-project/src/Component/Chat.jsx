@@ -5,7 +5,6 @@ import {marked} from 'marked'
 
 function Chat({message,loading}) {
   console.log(message);
-  
   return (
    <>
     <div className='mychat-section  h-50 w-full overflow-scroll'>

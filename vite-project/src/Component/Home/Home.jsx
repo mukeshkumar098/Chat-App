@@ -18,29 +18,50 @@ import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../FirebaseConfig';
 const openai = new OpenAI({ apiKey: import.meta.env.VITE_OPENAI_API_KEY, dangerouslyAllowBrowser: true });
 function Home() {
-    const [loading, setLoading] = useState(false);
     const [user, setUser] = useState(null);
-    
-    const provider = new GithubAuthProvider();
-  
-    const signInWithGithub = async () => {
+    const [input, setinput] = useState('')
+    const [message, setmessage] = useState([{ role: "system", content: 'ChatMK' },])
+    const [loading, setLoading] = useState(false);
+    console.log('input', input);
+    const chatOpenAI = async () => {
+        if (!input) return Swal.fire({
+            title: 'warning',
+            text: 'Please enter your prompt',
+            icon: 'warning',
+            confirmButtonText: 'Ok'
+        })
+        message.push({ role: "user", content: input, })
+        setLoading(true);
+        setinput('');
+
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: message,
+            //  [
+            //   { role: "system", content: "You are a helpful assistant." },
+            //   {
+            //     role: "user",
+            //     content:'what is mern',
+            //   },
+            // ],
+        });
+        message.push(completion.choices[0].message)
+        console.log(completion.choices[0].message);
+        setmessage([...message])
+        setLoading(false);
+    }
+    const signInWithGoogle = async () => {
         try {
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    const credential = GithubAuthProvider.credentialFromResult(result);
-                    const token = credential.accessToken;
-                    const user = result.user;
-                }).catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    const email = error.customData.email;
-                    const credential = GithubAuthProvider.credentialFromError(error);
-                });
+            const result = await signInWithPopup(auth, provider);
+            setUser(result.user);
+            console.log("result==>", result);
+
         } catch (error) {
             console.error("Error signing in with Google", error);
         }
     };
 
+  
     useEffect(() => {
 
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -61,59 +82,6 @@ function Home() {
             console.error("Error logging out:", error);
         });
     };
-    const signInWithGoogle = async () => {
-        try {
-            const result = await signInWithPopup(auth, provider);
-            setUser(result.user);
-            console.log("result==>", result);
-
-        } catch (error) {
-            console.error("Error signing in with Google", error);
-        }
-    };
-    const [showHistory, setshowHistory] = useState(false)
-    const [input, setinput] = useState('')
-    const [message, setmessage] = useState([{ role: "system", content: 'Chat GPT' },])
-
-    console.log('input', input);
-
-    // const [data,setData]=useState(0);
-    // console.log(data);
-
-
-    const chatOpenAI = async () => {
-        if (!input) return Swal.fire({
-            title: 'warning',
-            text: 'Please enter your prompt',
-            icon: 'warning',
-            confirmButtonText: 'Ok'
-        })
-
-        setLoading(true);
-        message.push({ role: "user", content: input, })
-
-        setinput('');
-
-        const completion = await openai.chat.completions.create({
-            model: "gpt-4o-mini",
-            messages: message,
-            //  [
-            //   { role: "system", content: "You are a helpful assistant." },
-            //   {
-            //     role: "user",
-            //     content:'what is mern',
-            //   },
-            // ],
-        });
-        message.push(completion.choices[0].message)
-        console.log(completion.choices[0].message);
-
-        setmessage([...message])
-        setLoading(false);
-
-
-
-    }
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -133,43 +101,31 @@ function Home() {
                         </div>
                     </div>
                     <div className="login  flex items-center gap-3 mr-7">
-                    {user ? (
-            <div className="sign-btn flex justify-center items-center ml-2 px-4 h-auto w-auto py-1 bg-[#171717] text-sm font-bold text-black rounded-3xl">
-              <img src={user.photoURL} className="rounded-full w-10 h-10 mr-2" alt="User Profile" />
-              <button className='color-gray' onClick={handleLogout}>Logout</button>
-            </div>
-          ) : (
-            <div className="sign-btn flex justify-center items-center ml-2 py-3 px-4 h-auto w-auto py-2 bg- text-sm font-bold text-black rounded-3xl hover:text-gray-200">
-              <button>
-                <Link to='/Login'>Sign in</Link>
-              </button>
-            </div>
-)}
+                        {user ? (
+                            <div className="sign-btn flex justify-center items-center ml-2 px-4 h-auto w-auto py-1 bg-[#171717] text-sm font-bold text-black rounded-3xl">
+                                <img src={user.photoURL} className="rounded-full w-10 h-10 mr-2" alt="User Profile" />
+                                <button className='color-gray' onClick={handleLogout}>Logout</button>
+                            </div>
+                        ) : (
+                            <div className="sign-btn flex justify-center items-center ml-2 py-3 px-4 h-auto w-auto py-2 bg- text-sm font-bold text-black rounded-3xl bg-[#2F2F2F] hover:text-gray-200">
+                                <button>
+                                    <Link to='/Login'>Sign in</Link>
+                                </button>
+                            </div>
+                        )}
 
                     </div>
-
                 </nav>
-                {showHistory && <div className='slider1' >
-                    <h2>hello bahi</h2>
-                </div>}
                 <div className="main-chat-container flex justify-center w-full ">
-
                     <div className="mychat-container h-full">
                         <section className='message-container p-1 flex flex-col'>
-
-
                             <Chat message={message} loading={loading} />
-
                         </section>
-                        <section className='input-section flex bg-[#2F2F2F] items-center mb-4'>
-                            <MdAddLink className=' addimage border-none cursor-pointer ml-4 bg-#2F2F2F' size={26} color='white' />
-
+                        <section className='input-section flex bg-[#2F2F2F] items-center mb-4 b-2'>
+                            <MdAddLink className=' addimage border-none cursor-pointer ml-4 bg-[#2F2F2F]' size={26} color='white' />
                             <input type="text" value={input} placeholder='enter your prompt'
-                                onChange={(e) => setinput(e.target.value)}
-                            />
+                                onChange={(e) => setinput(e.target.value)}/>
                             <FaArrowUp className='icons-chat' onClick={chatOpenAI} color='white' />
-
-
                         </section>
                     </div>
                 </div>
