@@ -6,11 +6,8 @@ import Home from './Component/Home/Home'
 import Login from './Component/Login/Login';
 import { GithubAuthProvider, onAuthStateChanged, signInWithPopup } from 'firebase/auth'
 import { auth } from './Component/FirebaseConfig'
-
-
-
 function App() {
-  
+ 
   const [user, setUser] = useState(null);
   useEffect(() => {
 

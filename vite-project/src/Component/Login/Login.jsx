@@ -3,10 +3,8 @@ import './Login.css';
 import { auth, provider } from '../FirebaseConfig';
 import { useState } from 'react'
 import { signInWithPopup, GithubAuthProvider } from 'firebase/auth';
-
 function Login() {
     const [user, setUser] = useState(null);
-
     const signInWithGoogle = async () => {
         try {    
             const result = await signInWithPopup(auth, provider);
@@ -84,5 +82,4 @@ function Login() {
         </>
     )
 }
-
 export default Login
