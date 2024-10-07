@@ -14,7 +14,7 @@ import '../Chat.css'
 import { BrowserRouter, Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 
 import { FaSquare } from "react-icons/fa";
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../FirebaseConfig';
 const openai = new OpenAI({ apiKey: import.meta.env.VITE_OPENAI_API_KEY, dangerouslyAllowBrowser: true });
 function Home() {
@@ -23,7 +23,7 @@ function Home() {
     const [message, setmessage] = useState([{ role: "system", content: 'ChatMK' },])
     const [loading, setLoading] = useState(false);
     const navigate=useNavigate();
-    const auth=getAuth();
+    // const auth=getAuth();
     console.log('input', input);
     const chatOpenAI = async () => {
         if (!input) return Swal.fire({
@@ -52,16 +52,6 @@ function Home() {
         setmessage([...message])
         setLoading(false);
     }
-    const signInWithGoogle = async () => {
-        try {
-            const result = await signInWithPopup(auth, provider);
-            setUser(result.user);
-            console.log("result==>", result);
-
-        } catch (error) {
-            console.error("Error signing in with Google", error);
-        }
-    };
 
   
     useEffect(() => {

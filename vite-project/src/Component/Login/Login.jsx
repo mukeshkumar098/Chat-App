@@ -4,16 +4,30 @@ import { createUserWithEmailAndPassword, GithubAuthProvider, signInWithEmailAndP
 import { auth, provider } from '../FirebaseConfig';
 
 function Login() {
+      const [loading, setLoading] = useState(false);
     const [user, setUser] = useState(null);
     const signInWithGoogle = async () => {
         try {
-            const result = await signInWithPopup(auth, provider);
-            setUser(result.user);
-            window.location.assign("/")
+          const result = await signInWithPopup(auth, provider);
+          setUser(result.user);
+          console.log("result==>", result);
+          window.close()
+          window.location.assign('/')
+          
+    
         } catch (error) {
-            console.error("Error signing in with Google", error);
+          console.error("Error signing in with Google", error);
         }
-    };
+      };
+
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+    } catch (error) {
+      console.error("Error signing out", error);
+}
+};
     const signInWithGithub = async () => {
         try {
             const githubProvider = new GithubAuthProvider(); 

@@ -10,15 +10,7 @@ import { GithubAuthProvider, signInWithPopup } from 'firebase/auth'
 
 function App() {
   
-  const [user, setUser] = useState(null);
-  const signInWithGoogle = async () => {
-      try {
-          const result = await signInWithPopup(auth, provider);
-          setUser(result.user);
-      } catch (error) {
-          console.error("Error signing in with Google", error);
-      }
-  };
+  
     const provider = new GithubAuthProvider();
     const signInWithGithub = async () => {
         try {
