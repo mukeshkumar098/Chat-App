@@ -5,10 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "serve": "vite preview"
+    "preview": "vite preview"
 
   },
   "dependencies": {
