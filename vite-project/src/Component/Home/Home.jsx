@@ -22,6 +22,8 @@ function Home() {
     const [input, setinput] = useState('')
     const [message, setmessage] = useState([{ role: "system", content: 'ChatMK' },])
     const [loading, setLoading] = useState(false);
+    const navigate=useNavigate();
+    const auth=getAuth();
     console.log('input', input);
     const chatOpenAI = async () => {
         if (!input) return Swal.fire({
