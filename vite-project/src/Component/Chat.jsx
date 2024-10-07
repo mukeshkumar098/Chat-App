@@ -4,7 +4,7 @@ import parse from 'html-react-parser';
 import {marked} from 'marked'
 
 function Chat({message,loading}) {
-  console.log(message);
+  console.log('message',message);
   return (
    <>
     <div className='mychat-section  h-50 w-full overflow-scroll'>

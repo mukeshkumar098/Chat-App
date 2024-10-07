@@ -8,12 +8,10 @@ import { FaArrowUp } from "react-icons/fa";
 import { BsPencilSquare } from "react-icons/bs";
 import { FaSlidersH } from "react-icons/fa";
 import { MdAddLink } from "react-icons/md";
-import { GithubAuthProvider } from 'firebase/auth';
+import { getAuth, GithubAuthProvider } from 'firebase/auth';
 import '../Chat.css'
 
-import { BrowserRouter, Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
-
-import { FaSquare } from "react-icons/fa";
+import { Link, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../FirebaseConfig';
 const openai = new OpenAI({ apiKey: import.meta.env.VITE_OPENAI_API_KEY, dangerouslyAllowBrowser: true });
@@ -23,8 +21,30 @@ function Home() {
     const [message, setmessage] = useState([{ role: "system", content: 'ChatMK' },])
     const [loading, setLoading] = useState(false);
     const navigate=useNavigate();
+    const auth=getAuth();
+    useEffect(() => {
+
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                setUser(currentUser);
+            } else {
+                setUser(null);
+            }
+        });
+
+        return () => unsubscribe();
+    }, [auth]);
+
+    const handleLogout = () => {
+        signOut(auth).then(() => {
+            navigate('/Login');
+        }).catch((error) => {
+            console.error("Error logging out:", error);
+        });
+    };
     // const auth=getAuth();
     console.log('input', input);
+
     const chatOpenAI = async () => {
         if (!input) return Swal.fire({
             title: 'warning',
@@ -54,32 +74,7 @@ function Home() {
     }
 
   
-    useEffect(() => {
-
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                setUser(currentUser);
-            } else {
-                setUser(null);
-            }
-        });
-
-        return () => unsubscribe();
-    }, [auth]);
-
-    const handleLogout = () => {
-        signOut(auth).then(() => {
-            navigate('/Login');
-        }).catch((error) => {
-            console.error("Error logging out:", error);
-        });
-    };
-
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            setmessage('');
-        }
-    };
+    
     return (
         <>
             <section className="main-container w-full bg-#212121">

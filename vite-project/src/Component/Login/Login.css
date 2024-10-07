@@ -10,8 +10,10 @@
 .login-container .login .email input{
     border: 1.4px solid  rgb(36, 93, 147);
     border-radius: 10px;
-
-
+}
+.login-container .login .password input{
+    border: 1.4px solid  rgb(36, 93, 147);
+    border-radius: 10px;
 }
 .form .term p{
     margin-top: 20px;

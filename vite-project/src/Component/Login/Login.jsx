@@ -1,35 +1,24 @@
-import React, { useState } from 'react'
-import './Login.css'
-import { createUserWithEmailAndPassword, GithubAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import React from 'react'
+import './Login.css';
 import { auth, provider } from '../FirebaseConfig';
+import { useState } from 'react'
+import { signInWithPopup, GithubAuthProvider } from 'firebase/auth';
 
 function Login() {
-      const [loading, setLoading] = useState(false);
     const [user, setUser] = useState(null);
-    const signInWithGoogle = async () => {
-        try {
-          const result = await signInWithPopup(auth, provider);
-          setUser(result.user);
-          console.log("result==>", result);
-          window.close()
-          window.location.assign('/')
-          
-    
-        } catch (error) {
-          console.error("Error signing in with Google", error);
-        }
-      };
 
-  const logout = async () => {
-    try {
-      await signOut(auth);
-      setUser(null);
-    } catch (error) {
-      console.error("Error signing out", error);
-}
-};
+    const signInWithGoogle = async () => {
+        try {    
+            const result = await signInWithPopup(auth, provider);
+            setUser(result.user);
+            window.location.assign("/")
+        } catch (error) {
+            console.error("Error signing in with Google", error);
+        }
+    };
     const signInWithGithub = async () => {
         try {
+          
             const githubProvider = new GithubAuthProvider(); 
             const result = await signInWithPopup(auth, githubProvider); 
             const credential = GithubAuthProvider.credentialFromResult(result);
@@ -39,9 +28,9 @@ function Login() {
             setUser(user);
             window.location.assign("/");
         } catch (error) {
-            console.error("Error signing in with GitHub", error);
-        }
-    };
+            console.error("Error signing in with GitHub", error.message);
+        }
+    };
     return (
         <>
             <div className="login-container w-full flex justify-center items-center ">
@@ -60,7 +49,7 @@ function Login() {
                                 <input className='p-4 f-4 mt-5 w-[300px]' type="email" placeholder='Enter your email' />
                             </div>
                             <div className="password">
-                                <input className='p-4 f-4 mt-5 w-[300px]' type="" placeholder='Enter your password' />
+                                <input className='p-4 f-4 mt-5 w-[300px] rounded-[10px]' type="password" placeholder='Enter your password' />
                             </div>
                       
                             <div className="buttons">
@@ -68,9 +57,9 @@ function Login() {
                             </div>
                           
                             <div className="google flex w-90 justify-center my-2 hover:cursor-pointer ">
-                            <div className="icons flex gap-2 mt-2 p-3 w-[300px]  " onClick={signInWithGoogle}>
+                            <div className="icons flex gap-2 mt-2 p-3 w-[300px] hover:cursor-pointer rounded-[10px]  " onClick={signInWithGoogle}>
                                 <img src="/public/search.png" alt="google logo"  className='w-8'/>
-                                <h3 onClick={signInWithGoogle}>login whith google</h3>
+                                <h3 onClick={signInWithGoogle}>login with google</h3>
                             </div>
                                           
                            
@@ -80,7 +69,7 @@ function Login() {
                             <div className="git flex w-90 justify-center my-2 ">
                             <div className="icons flex gap-2 mt-2 p-3 w-[300px] hover:cursor-pointer rounded-[10px] " onClick={signInWithGithub}>
                                 <img src="/public/git.webp" alt="google logo"  className='w-9'/>
-                                <h3 onClick={signInWithGithub}>Continue With Github</h3>
+                                <h3>Continue With Github</h3>
 
                             </div>
                             </div>
