@@ -1,4 +1,4 @@
-[build]publish = "dist"  # Vite outputs build to "dist"
+[build] publish = "dist"  # Vite outputs build to "dist"
 command = "npm run build"
 
 [[redirects]]
